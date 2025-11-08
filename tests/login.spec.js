@@ -5,9 +5,13 @@ import { CommonMethods } from '../utils/commonMethods.js';
 import { DashboardPage } from '../pages/dashboard.js';
 import { constant } from '../utils/constant.js';
 import { label, description, link, step ,attachment} from 'allure-js-commons';
-
+import  fs  from 'fs'
 
 const config = loadConfig();
+
+const data = fs.readFileSync('./utils/testData.json', 'utf-8'); // read file
+const parseData = JSON.parse(data); // convert to JSON object
+
 
 
 test('log in to orageHRM', async ({ page }) => {
@@ -15,6 +19,8 @@ test('log in to orageHRM', async ({ page }) => {
    const login = new LoginPage(page);
    const dashboard = new DashboardPage(page);
    const commonMethod = new CommonMethods(page);
+
+   console.log(parseData.name); // print json data
 
    try{
      await step("Navigate to login page", async ()=>{
